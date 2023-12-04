@@ -5,6 +5,8 @@
 #include <QMainWindow>
 #include <QtSql>
 #include <QtCore>
+#include <QPushButton>
+#include <QRadioButton>
 
 
 
@@ -20,9 +22,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void clickPushButton();
+    void clickRadioButton();
 
 private:
     Ui::MainWindow *ui;
+    QSqlDatabase db;
 };
 
 #endif // MAINWINDOW_H
