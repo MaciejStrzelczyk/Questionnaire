@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+//#include "ui_createaccount.h"
+//#include "createaccount.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -8,13 +10,52 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    qDebug() << "a";
-    qDebug() << QSqlDatabase::drivers();
+     connect(ui->pushButton ,&QPushButton::clicked, this, &MainWindow::clickPushButton);
+
+
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::clickPushButton()
+{
+
+    ui->label->setText(db.databaseName());
+
+
+}
+
+void MainWindow::clickRadioButton()
+{
+
+}
+void MainWindow::odebranoDane(const QString &dane, const QSqlDatabase &db) {
+    qDebug() << "------------";
+
+    ui->lineEdit->setText(dane);
+    this->db = db;
+    this->idUser = dane;
+
+
+    QSqlQuery query;
+    if (query.exec("SELECT email FROM User where user_id=" + this->idUser))
+    {
+        while (query.next())
+        {
+            QString wartosc = query.value(0).toString();  // Zakładając, że chcesz pobrać pierwszą kolumnę
+            ui->label_2->setText(wartosc);
+        }
+    }
+    else
+    {
+        qDebug() << "Błąd zapytania SQL: " << query.lastError().text();
+    }
+
+
 }
 
 

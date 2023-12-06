@@ -18,6 +18,9 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        createaccount.cpp
+        createaccount.h
+        createaccount.ui
         resource/resource.qrc
 )
 
