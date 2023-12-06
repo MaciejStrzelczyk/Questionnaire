@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "ui_createaccount.h"
-#include "createaccount.h"
+//#include "ui_createaccount.h"
+//#include "createaccount.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -9,23 +9,18 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(ui->pushButton,&QPushButton::clicked, this, &MainWindow::clickPushButton);
-    connect(ui->pushButton_2,&QRadioButton::clicked, this, &MainWindow::clickRadioButton);
 
 
-    qDebug() << "a";
-    qDebug() << QSqlDatabase::drivers();
 
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setHostName(QCoreApplication::applicationDirPath()+"/test.db");
-    if(db.open())
-    {
-        qDebug() << "Connect to database";
-    }
-    else
-    {
-        qDebug() << "don't connected";
-    }
+
+    qDebug() << "main1";
+    //qDebug() << db.userName();
+//    connect(ui->pushButton,&QPushButton::clicked, this, &MainWindow::clickPushButton);
+//    connect(ui->pushButton_2,&QRadioButton::clicked, this, &MainWindow::clickRadioButton);
+   // connect(dialog, &createAccount::danePrzeslane, this, &MainWindow::odebranoDane);
+
+
+
 }
 
 MainWindow::~MainWindow()
@@ -40,10 +35,30 @@ void MainWindow::clickPushButton()
 
 void MainWindow::clickRadioButton()
 {
-    createAccount accountScrean;
-    accountScrean.setModal(true);
-    accountScrean.exec();
 
+}
+void MainWindow::odebranoDane(const QString &dane, const QSqlDatabase &db) {
+    ui->lineEdit->setText(dane);
+    this->db = db;
+    ui->label->setText(db.userName());
+
+    qDebug()<< db.hostName();
+
+
+    QSqlQuery query;
+    //query.prepare("SELECT email FROM [test].[Tabele].User");
+    if (query.exec("SELECT email FROM User where user_id=" + dane))
+    {
+        while (query.next())
+        {
+            QString wartosc = query.value(0).toString();  // Zakładając, że chcesz pobrać pierwszą kolumnę
+            ui->label_2->setText(wartosc);
+        }
+    }
+    else
+    {
+        qDebug() << "Błąd zapytania SQL: " << query.lastError().text();
+    }
 
 }
 

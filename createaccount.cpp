@@ -7,13 +7,40 @@ createAccount::createAccount(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->pushButton,&QPushButton::clicked, this, &createAccount::clickPushButton);
+
+    connect(ui->pushButton, &QPushButton::clicked, this, &createAccount::onButtonOkClicked);
+
+
+    qDebug() << "create";
+    qDebug() << QSqlDatabase::drivers();
+
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setUserName("test");
+    db.setDatabaseName("C:/SQL/test");
+    db.open();
+    if(db.isOpen())
+    {
+        qDebug() << "Connect to database";
+    }
+    else
+    {
+        qDebug() << "don't connected";
+    }
+
 }
 
 createAccount::~createAccount()
 {
     delete ui;
 }
-void clickPushButton()
+void createAccount::clickPushButton()
 {
-    createAccount();
+    this->close();
+}
+
+void createAccount::onButtonOkClicked()
+{
+    QString dane = ui->lineEdit->text();
+    emit createAccount::danePrzeslane(dane, this->db);
+    close();
 }

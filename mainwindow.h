@@ -7,6 +7,7 @@
 #include <QtCore>
 #include <QPushButton>
 #include <QRadioButton>
+#include <QSqlDatabase>
 
 
 
@@ -24,10 +25,14 @@ public:
     ~MainWindow();
     void clickPushButton();
     void clickRadioButton();
+    QSqlDatabase db;
+
+public slots:
+    void odebranoDane(const QString &dane, const QSqlDatabase &db);
 
 private:
     Ui::MainWindow *ui;
-    QSqlDatabase db;
+
 };
 
 #endif // MAINWINDOW_H
