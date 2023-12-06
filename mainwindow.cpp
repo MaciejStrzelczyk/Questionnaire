@@ -10,14 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-
-
-
-    qDebug() << "main1";
-    //qDebug() << db.userName();
-//    connect(ui->pushButton,&QPushButton::clicked, this, &MainWindow::clickPushButton);
-//    connect(ui->pushButton_2,&QRadioButton::clicked, this, &MainWindow::clickRadioButton);
-   // connect(dialog, &createAccount::danePrzeslane, this, &MainWindow::odebranoDane);
+     connect(ui->pushButton ,&QPushButton::clicked, this, &MainWindow::clickPushButton);
 
 
 
@@ -30,7 +23,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::clickPushButton()
 {
-    qDebug() << "end2";
+
+    ui->label->setText(db.databaseName());
+
+
 }
 
 void MainWindow::clickRadioButton()
@@ -38,16 +34,15 @@ void MainWindow::clickRadioButton()
 
 }
 void MainWindow::odebranoDane(const QString &dane, const QSqlDatabase &db) {
+    qDebug() << "------------";
+
     ui->lineEdit->setText(dane);
     this->db = db;
-    ui->label->setText(db.userName());
-
-    qDebug()<< db.hostName();
+    this->idUser = dane;
 
 
     QSqlQuery query;
-    //query.prepare("SELECT email FROM [test].[Tabele].User");
-    if (query.exec("SELECT email FROM User where user_id=" + dane))
+    if (query.exec("SELECT email FROM User where user_id=" + this->idUser))
     {
         while (query.next())
         {
@@ -59,6 +54,7 @@ void MainWindow::odebranoDane(const QString &dane, const QSqlDatabase &db) {
     {
         qDebug() << "Błąd zapytania SQL: " << query.lastError().text();
     }
+
 
 }
 
