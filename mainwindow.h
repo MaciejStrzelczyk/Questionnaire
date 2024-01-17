@@ -33,6 +33,7 @@ public slots:
 private:
     Ui::MainWindow *ui;
     QString idUser;
+    QString userName;
 
 };
 

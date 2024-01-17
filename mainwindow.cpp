@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 //#include "ui_createaccount.h"
 //#include "createaccount.h"
+using namespace std;
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -38,11 +39,11 @@ void MainWindow::odebranoDane(const QString &dane, const QSqlDatabase &db) {
 
     ui->lineEdit->setText(dane);
     this->db = db;
-    this->idUser = dane;
+    this->userName = dane;
 
 
     QSqlQuery query;
-    if (query.exec("SELECT email FROM User where user_id=" + this->idUser))
+    if (query.exec("select email from user where username = '" + this->idUser + "'"  ))
     {
         while (query.next())
         {

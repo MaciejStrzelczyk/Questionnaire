@@ -14,6 +14,6 @@ int main(int argc, char *argv[])
 
     accountScrean->exec();
     w->show();
-
+    delete accountScrean;
     return a.exec();
 }
