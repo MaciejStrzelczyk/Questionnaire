@@ -28,7 +28,7 @@ public:
     QSqlDatabase db;
 
 public slots:
-    void odebranoDane(const QString &dane, const QSqlDatabase &db);
+    void odebranoDane(const QSqlQuery &dane, const QSqlDatabase &db);
 
 private:
     Ui::MainWindow *ui;

@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+     this->close();
 }
 
 void MainWindow::clickPushButton()
@@ -34,27 +35,28 @@ void MainWindow::clickRadioButton()
 {
 
 }
-void MainWindow::odebranoDane(const QString &dane, const QSqlDatabase &db) {
+void MainWindow::odebranoDane(const QSqlQuery &dane, const QSqlDatabase &db) {
     qDebug() << "------------";
 
-    ui->lineEdit->setText(dane);
+    ui->label->setText(dane.value(1).toString() + " " + dane.value(2).toString());
     this->db = db;
-    this->userName = dane;
+    this->userName = dane.value(5).toString();
 
 
-    QSqlQuery query;
-    if (query.exec("select email from user where username = '" + this->idUser + "'"  ))
-    {
-        while (query.next())
-        {
-            QString wartosc = query.value(0).toString();  // Zakładając, że chcesz pobrać pierwszą kolumnę
-            ui->label_2->setText(wartosc);
-        }
-    }
-    else
-    {
-        qDebug() << "Błąd zapytania SQL: " << query.lastError().text();
-    }
+//    QSqlQuery query;
+//    if (query.exec("select * from user where username = '" + this->userName + "'"  ))
+//    {
+//        while (query.next())
+//        {
+//            QString wartosc = query.value(3).toString();  // Zakładając, że chcesz pobrać pierwszą kolumnę
+//            ui->label_2->setText(wartosc);
+//            qDebug() << wartosc;
+//        }
+//    }
+//    else
+//    {
+//        qDebug() << "Błąd zapytania SQL: " << query.lastError().text();
+//    }
 
 
 }

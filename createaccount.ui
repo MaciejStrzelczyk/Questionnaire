@@ -60,6 +60,10 @@ QLabel
 {
 	color:white;
 }
+#label_4
+{
+	color:red;
+}
 
 QLineEdit
 {
@@ -186,6 +190,22 @@ QLineEdit
     </property>
     <property name="text">
      <string>Utwórz nowe konto</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>320</y>
+      <width>301</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Błędne dane logowania</string>
     </property>
    </widget>
   </widget>
