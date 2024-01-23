@@ -29,12 +29,14 @@ public:
 private:
     Ui::createAccount *ui;
     bool isAautentication = false;
+    void connectToDataBase();
 
 signals:
     void danePrzeslane(const QSqlQuery &dane, const QSqlDatabase &db);
 
 private slots:
     void onButtonOkClicked();
+    void onButton2Clicked();
     void clearLineEdit();
 
 };

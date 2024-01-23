@@ -21,6 +21,9 @@ set(PROJECT_SOURCES
         createaccount.cpp
         createaccount.h
         createaccount.ui
+        addnewaccount.h
+        addnewaccount.cpp
+        addnewaccount.ui
         resource/resource.qrc
 )
 

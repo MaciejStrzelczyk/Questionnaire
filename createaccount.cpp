@@ -1,5 +1,6 @@
 #include "createaccount.h"
 #include "ui_createaccount.h"
+#include "addnewaccount.h"
 #include <QMessageBox>
 #include <QLineEdit>
 
@@ -12,27 +13,11 @@ createAccount::createAccount(QWidget *parent) :
     ui->label_4->setVisible(false);
 
     connect(ui->pushButton,&QPushButton::clicked, this, &createAccount::clickPushButton);
-
     connect(ui->pushButton, &QPushButton::clicked, this, &createAccount::onButtonOkClicked);
-
+    connect(ui->pushButton_2, &QPushButton::clicked, this, &createAccount::onButton2Clicked);
     connect(ui->pushButton, &QPushButton::clicked, this, &createAccount::clearLineEdit);
 
-
-    qDebug() << "create";
-    qDebug() << QSqlDatabase::drivers();
-
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setUserName("test");
-    db.setDatabaseName("C:/SQL/test");
-    db.open();
-    if(db.isOpen())
-    {
-        qDebug() << "Connect to database";
-    }
-    else
-    {
-        qDebug() << "don't connected";
-    }
+    connectToDataBase();
 
 }
 
@@ -81,6 +66,14 @@ void createAccount::onButtonOkClicked()
 
 }
 
+void createAccount::onButton2Clicked()
+{
+    addnewaccount *createnewaccount = new addnewaccount();
+    createnewaccount->exec();
+    delete createnewaccount;
+}
+
+
 bool createAccount::getIsAutentication()
 {
     return this->isAautentication;
@@ -90,4 +83,23 @@ void createAccount::clearLineEdit()
 {
     ui->lineEdit->clear();
     ui->lineEdit_2->clear();
+}
+
+void createAccount::connectToDataBase()
+{
+    qDebug() << "create";
+    qDebug() << QSqlDatabase::drivers();
+
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setUserName("test");
+    db.setDatabaseName("C:/SQL/test");
+    db.open();
+    if(db.isOpen())
+    {
+        qDebug() << "Connect to database";
+    }
+    else
+    {
+        qDebug() << "don't connected";
+    }
 }

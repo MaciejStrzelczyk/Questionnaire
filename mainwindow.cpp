@@ -62,3 +62,14 @@ void MainWindow::odebranoDane(const QSqlQuery &dane, const QSqlDatabase &db) {
 }
 
 
+void MainWindow::on_actionExit_triggered()
+{
+    this->close();
+}
+
+
+void MainWindow::on_actionAdd_triggered()
+{
+    qDebug() << "Add action";
+}
+
