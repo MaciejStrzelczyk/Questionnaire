@@ -1,16 +1,92 @@
 #include "createaccount.h"
 #include "ui_createaccount.h"
+#include "addnewaccount.h"
+#include <QMessageBox>
+#include <QLineEdit>
 
 createAccount::createAccount(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::createAccount)
 {
     ui->setupUi(this);
+
+    ui->label_4->setVisible(false);
+
     connect(ui->pushButton,&QPushButton::clicked, this, &createAccount::clickPushButton);
-
     connect(ui->pushButton, &QPushButton::clicked, this, &createAccount::onButtonOkClicked);
+    connect(ui->pushButton_2, &QPushButton::clicked, this, &createAccount::onButton2Clicked);
+    connect(ui->pushButton, &QPushButton::clicked, this, &createAccount::clearLineEdit);
+
+    connectToDataBase();
+
+}
+
+createAccount::~createAccount()
+{
+    delete ui;
+    this->close();
+}
+void createAccount::clickPushButton()
+{
+    this->close();
+}
+
+void createAccount::onButtonOkClicked()
+{
+
+    QString userName = ui->lineEdit->text();
+    QString password = ui->lineEdit_2->text();
+    QSqlQuery query;
+    if (query.exec("select * from user where username = '" + userName + "'"  ))
+    {
+        if (query.next())
+        {
+            if(password == query.value(4).toString()) // Zakładając, że chcesz pobrać pierwszą kolumnę
+            {
+                emit createAccount::danePrzeslane(query, this->db);
+                this->isAautentication = true;
+            }
+            else
+            {
+                ui->label_4->setVisible(true);
+            }
+
+        }
+        else
+        {
+            ui->label_4->setVisible(true);
+        }
+    }
+    else
+    {
+        qDebug() << "Błąd zapytania SQL: " << query.lastError().text();
+
+    }
 
 
+}
+
+void createAccount::onButton2Clicked()
+{
+    addnewaccount *createnewaccount = new addnewaccount();
+    createnewaccount->exec();
+    delete createnewaccount;
+}
+
+
+bool createAccount::getIsAutentication()
+{
+    return this->isAautentication;
+}
+
+void createAccount::clearLineEdit()
+{
+    ui->lineEdit->clear();
+    ui->lineEdit_2->clear();
+}
+
+void createAccount::connectToDataBase()
+{
     qDebug() << "create";
     qDebug() << QSqlDatabase::drivers();
 
@@ -26,21 +102,4 @@ createAccount::createAccount(QWidget *parent) :
     {
         qDebug() << "don't connected";
     }
-
-}
-
-createAccount::~createAccount()
-{
-    delete ui;
-}
-void createAccount::clickPushButton()
-{
-    this->close();
-}
-
-void createAccount::onButtonOkClicked()
-{
-    QString dane = ui->lineEdit->text();
-    emit createAccount::danePrzeslane(dane, this->db);
-    close();
 }

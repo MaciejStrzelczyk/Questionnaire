@@ -23,15 +23,21 @@ public:
     explicit createAccount(QWidget *parent = nullptr);
     ~createAccount();
     void clickPushButton();
+    bool getIsAutentication();
+
 
 private:
     Ui::createAccount *ui;
+    bool isAautentication = false;
+    void connectToDataBase();
 
 signals:
-    void danePrzeslane(const QString &dane, const QSqlDatabase &db);
+    void danePrzeslane(const QSqlQuery &dane, const QSqlDatabase &db);
 
 private slots:
     void onButtonOkClicked();
+    void onButton2Clicked();
+    void clearLineEdit();
 
 };
 

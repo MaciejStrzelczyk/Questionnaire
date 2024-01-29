@@ -8,6 +8,8 @@
 #include <QPushButton>
 #include <QRadioButton>
 #include <QSqlDatabase>
+#include <QtWidgets>
+#include <QAction>
 
 
 
@@ -28,11 +30,19 @@ public:
     QSqlDatabase db;
 
 public slots:
-    void odebranoDane(const QString &dane, const QSqlDatabase &db);
+    void odebranoDane(const QSqlQuery &dane, const QSqlDatabase &db);
+
+private slots:
+    void on_actionExit_triggered();
+    //void on_actionDodaj_triggered();
+
+    void on_actionAdd_triggered();
 
 private:
     Ui::MainWindow *ui;
     QString idUser;
+    QString userName;
+
 
 };
 
