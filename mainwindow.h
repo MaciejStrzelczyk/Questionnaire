@@ -25,9 +25,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void clickPushButton();
+
     void clickRadioButton();
-    QSqlDatabase db;
+
 
 public slots:
     void odebranoDane(const QSqlQuery &dane, const QSqlDatabase &db);
@@ -35,6 +35,10 @@ public slots:
 private slots:
     void on_actionExit_triggered();
     //void on_actionDodaj_triggered();
+    void clickPushButton5();
+    void clickPushButton2();
+    void clickPushButton4();
+    void clickPushButton6();
 
     void on_actionAdd_triggered();
 
@@ -42,6 +46,9 @@ private:
     Ui::MainWindow *ui;
     QString idUser;
     QString userName;
+    QString sex;
+    QSqlDatabase db;
+    QSqlQuery data;
 
 
 };

@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     if(accountScrean->getIsAutentication() == false)
     {
         QMessageBox msgBox;
-        msgBox.setText("Podano błędnie zbyt wiele razy dane logowania");
+        msgBox.setText("Too many tries");
         msgBox.exec();
         delete accountScrean;
         delete w;

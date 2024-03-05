@@ -41,14 +41,18 @@ void createAccount::onButtonOkClicked()
     {
         if (query.next())
         {
-            if(password == query.value(4).toString()) // Zakładając, że chcesz pobrać pierwszą kolumnę
+            while (query.next())
             {
-                emit createAccount::danePrzeslane(query, this->db);
-                this->isAautentication = true;
-            }
-            else
-            {
-                ui->label_4->setVisible(true);
+                if(password == query.value(4).toString()) // Zakładając, że chcesz pobrać pierwszą kolumnę
+                {
+                    emit createAccount::danePrzeslane(query, this->db);
+                    this->isAautentication = true;
+                }
+                else
+                {
+                    ui->label_4->setVisible(true);
+                }
+
             }
 
         }

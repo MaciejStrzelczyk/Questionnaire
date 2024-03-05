@@ -11,7 +11,28 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-     connect(ui->pushButton ,&QPushButton::clicked, this, &MainWindow::clickPushButton);
+    ui->widget_2->adjustSize();
+    ui->widget_2->hide();
+    ui->stackedWidget->setCurrentIndex(0);
+
+    if(QString::compare(this->sex, "M", Qt::CaseInsensitive) )
+    {
+        ui->label_7->setText("Male");
+        ui->toolButton->show();
+        ui->toolButton_2->hide();
+    }
+    else
+    {
+        ui->label_7->setText("Female");
+        ui->toolButton->hide();
+        ui->toolButton_2->show();
+    }
+
+
+     connect(ui->pushButton_2 ,&QPushButton::clicked, this, &MainWindow::clickPushButton2);
+     connect(ui->pushButton_4 ,&QPushButton::clicked, this, &MainWindow::clickPushButton4);
+     connect(ui->pushButton_5 ,&QPushButton::clicked, this, &MainWindow::clickPushButton5);
+     connect(ui->pushButton_6 ,&QPushButton::clicked, this, &MainWindow::clickPushButton6);
 
 
 
@@ -23,41 +44,52 @@ MainWindow::~MainWindow()
      this->close();
 }
 
-void MainWindow::clickPushButton()
+void MainWindow::clickPushButton5()
 {
 
-    ui->label->setText(db.databaseName());
+     if(!(ui->widget_2->isHidden()))
+     {
+         ui->widget_2->hide();
+     }
+     else
+     {
+         ui->widget_2->show();
+     }
+}
 
 
+void MainWindow::clickPushButton2()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+
+void MainWindow::clickPushButton4()
+{
+     ui->stackedWidget->setCurrentIndex(1);
+}
+
+
+void MainWindow::clickPushButton6()
+{
+     ui->stackedWidget->setCurrentIndex(2);
 }
 
 void MainWindow::clickRadioButton()
 {
 
 }
+
+
 void MainWindow::odebranoDane(const QSqlQuery &dane, const QSqlDatabase &db) {
     qDebug() << "------------";
-
-    ui->label->setText(dane.value(1).toString() + " " + dane.value(2).toString());
+     qDebug() << dane.value(1).toString() + " " + dane.value(2).toString() + " " + " " + dane.value(6).toString();
+    this->data = dane;
+    ui->label_4->setText(dane.value(1).toString() + " " + dane.value(2).toString());
     this->db = db;
     this->userName = dane.value(5).toString();
-
-
-//    QSqlQuery query;
-//    if (query.exec("select * from user where username = '" + this->userName + "'"  ))
-//    {
-//        while (query.next())
-//        {
-//            QString wartosc = query.value(3).toString();  // Zakładając, że chcesz pobrać pierwszą kolumnę
-//            ui->label_2->setText(wartosc);
-//            qDebug() << wartosc;
-//        }
-//    }
-//    else
-//    {
-//        qDebug() << "Błąd zapytania SQL: " << query.lastError().text();
-//    }
-
+    this->sex = dane.value(6).toString();
+    qDebug() << this->sex;
 
 }
 

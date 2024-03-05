@@ -4,5 +4,14 @@
         <file>img/printshop17.jpg</file>
         <file>img/bac1.jpg</file>
         <file>img/newAccount.png</file>
+        <file>icons/activity-feed-16.ico</file>
+        <file>icons/dashboard-16.ico</file>
+        <file>icons/house-16.ico</file>
+        <file>icons/user-16.ico</file>
+        <file>icons/question-mark-16.ico</file>
+        <file>icons/x-mark-16.ico</file>
+        <file>icons/view-details-16.ico</file>
+        <file>img/UserM.png</file>
+        <file>img/UserF.png</file>
     </qresource>
 </RCC>
