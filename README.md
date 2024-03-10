@@ -37,6 +37,7 @@ The development roadmap includes:
 ## Login screen 
 ![image](https://github.com/MaciejStrzelczyk/Questionnaire/assets/94145559/7e820ccb-defa-43e2-9db3-0cdcd0cd2bca)
 
+
 ## Account creation screen
 ![image](https://github.com/MaciejStrzelczyk/Questionnaire/assets/94145559/243d9e23-b2c7-4436-81ad-e4be719ff098)
 
